@@ -80,10 +80,30 @@ public class Main {
             }
             insert = false;
         }
-        // print newHistory array
+
+        // remove the longest call time
+        int maxCallTime = 0;
         for (int a = 0; a < newHistory.size(); a++) {
-            System.out.println("phone number " + newHistory.get(a).get(0) + " and " + "call time " + newHistory.get(a).get(1));
+            String first = String.valueOf(newHistory.get(a).get(1));
+            maxCallTime = Integer.valueOf(first);
+            for ( int b = a; b < newHistory.size(); b++) {
+                String secord = String.valueOf(newHistory.get(b).get(1));
+                int secordCallTime = Integer.valueOf(secord);
+                if ( maxCallTime > secordCallTime) {
+                    newHistory.remove(a);
+                } else {
+                    newHistory.remove(b);
+                }
+            }
         }
 
+        double cost = 0;
+        for (int a = 0; a < newHistory.size(); a++) {
+            String phoneNumber = String.valueOf(newHistory.get(a).get(0));
+            String callTime = String.valueOf(newHistory.get(a).get(1));
+            // can't remember the price exactly. Missing a condition to calculate different cost based on different call time.
+            cost = Math.floor( Integer.valueOf(callTime) / 60) * 180;
+            System.out.println("phone number " + phoneNumber + ", call time " + callTime + ", cost " + cost);
+        }
     }
 }
